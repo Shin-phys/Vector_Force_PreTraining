@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <rect class="fig-hatch" x="90" y="44" width="420" height="16"/>
+  <line class="fig-scenery" x1="90" y1="60" x2="510" y2="60"/>
+  </g>
+  <text class="fig-note" x="508" y="36" text-anchor="end">天井</text>
+  <line class="fig-string" data-role="scenery" x1="276" y1="216" x2="120" y2="60"/>
+  <line class="fig-string" data-role="scenery" x1="324" y1="216" x2="480" y2="60"/>
+  <polyline class="fig-scenery" stroke-width="1.5" points="247.7,187.7 246.2,189.3 244.7,191.1 243.4,192.9 242.1,194.7 241,196.7 240,198.6 239,200.7 238.2,202.8 237.6,204.9 237,207.1 236.6,209.3 236.3,211.5 236.1,213.8 236,216"/><text class="fig-note" x="215" y="195.7" text-anchor="middle">45°</text>
+  <polyline class="fig-scenery" stroke-width="1.5" points="364,216 363.9,213.8 363.7,211.5 363.4,209.3 363,207.1 362.4,204.9 361.8,202.8 361,200.7 360,198.6 359,196.7 357.9,194.7 356.6,192.9 355.3,191.1 353.8,189.3 352.3,187.7"/><text class="fig-note" x="385" y="195.7" text-anchor="middle">45°</text>
+  <g id="body-a" data-role="body">
+  <circle data-role="outline" class="fig-body-a" cx="300" cy="240" r="34"/>
+  </g>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="300" cy="240" r="1" opacity="0"/>
+  <circle data-snap="a-attach-l" data-snap-type="ATTACH" data-inward="315" data-body="a" cx="276" cy="216" r="1" opacity="0"/>
+  <circle data-snap="a-attach-r" data-snap-type="ATTACH" data-inward="225" data-body="a" cx="324" cy="216" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="300" cy="206" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="300" cy="274" r="1" opacity="0"/>
+</svg>

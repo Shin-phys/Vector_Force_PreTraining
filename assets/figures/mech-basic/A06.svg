@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="40" y1="360" x2="560" y2="360"/>
+  <rect class="fig-hatch" x="40" y="360" width="520" height="16"/>
+  </g>
+  <polyline class="fig-guide" data-role="scenery" points="60,360 72,336.6 84,314.4 96,293.4 108,273.6 120,255 132,237.6 144,221.4 156,206.4 168,192.6 180,180 192,168.6 204,158.4 216,149.4 228,141.6 240,135 252,129.6 264,125.4 276,122.4 288,120.6 300,120 312,120.6 324,122.4 336,125.4 348,129.6 360,135 372,141.6 384,149.4 396,158.4 408,168.6 420,180 432,192.6 444,206.4 456,221.4 468,237.6 480,255 492,273.6 504,293.4 516,314.4 528,336.6 540,360"/>
+  <g data-role="scenery"><line class="fig-guide" x1="300" y1="120" x2="351" y2="120"/><polygon class="fig-guide-solid" points="362,120 351,125 351,115"/><text class="fig-note" x="374" y="125" text-anchor="middle">v</text></g>
+  <g id="body-a" data-role="body">
+  <circle data-role="outline" class="fig-body-a" cx="300" cy="120" r="26"/>
+  </g>
+  <text class="fig-note" x="70" y="100" text-anchor="start">空気抵抗は無視する</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="300" cy="120" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="300" cy="94" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="300" cy="146" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="274" cy="120" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="326" cy="120" r="1" opacity="0"/>
+</svg>

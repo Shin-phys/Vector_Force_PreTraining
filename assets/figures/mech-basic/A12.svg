@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <rect class="fig-hatch" x="430" y="80" width="16" height="260"/>
+  <line class="fig-scenery" x1="430" y1="80" x2="430" y2="340"/>
+  </g>
+  <text class="fig-note" x="456" y="74" text-anchor="start">かべ</text>
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="40" y1="340" x2="430" y2="340"/>
+  <rect class="fig-hatch" x="40" y="340" width="390" height="16"/>
+  </g>
+  <rect class="fig-scenery" fill="var(--panel-2)" x="276" y="223" width="54" height="34" rx="12"/>
+  <text class="fig-note" x="303" y="211" text-anchor="middle">手</text>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="330" y="200" width="100" height="80" rx="2"/>
+  </g>
+  <text class="fig-note" x="150" y="330" text-anchor="start">物体は静止している（床には触れていない）</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="380" cy="240" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="330" cy="240" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="430" cy="240" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="380" cy="200" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="380" cy="280" r="1" opacity="0"/>
+</svg>

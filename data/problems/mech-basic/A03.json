@@ -1,0 +1,63 @@
+{
+  "id": "A03",
+  "title": "ばねにつるして静止したおもり",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A03.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "天井につけたばねにおもりをつるすと、ばねが伸びて静止した。",
+  "tags": [
+    "重力",
+    "弾性力",
+    "つりあい"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "おもりにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "ELASTIC",
+        "TENSION",
+        "NORMAL_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "SPRING",
+        "CEILING",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aF",
+          "type": "ELASTIC",
+          "from": "SPRING",
+          "snap": "a-top",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aF",
+      "op": "=",
+      "b": "aG",
+      "note": "つりあい"
+    }
+  ],
+  "misconception": {
+    "WRONG_ANGLE:aF": "MC_ELASTIC_DIRECTION",
+    "WRONG_POINT:aF": "MC_TENSION_AT_CENTER"
+  },
+  "explanation": "ばねは伸びているので、縮んで自然の長さに戻ろうとする向き（上向き）におもりを引きます。作用点はばねの取付点です。"
+}

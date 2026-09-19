@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <rect class="fig-scenery" fill="none" x="170" y="60" width="260" height="290"/>
+  <rect class="fig-hatch" x="170" y="44" width="260" height="16"/>
+  </g>
+  <text class="fig-note" x="166" y="80" text-anchor="end">エレベーター</text>
+  <line class="fig-string" data-role="scenery" x1="300" y1="60" x2="300" y2="170"/>
+  <g data-role="scenery"><line class="fig-guide" x1="470" y1="260" x2="470" y2="197"/><polygon class="fig-guide-solid" points="470,186 475,197 465,197"/><text class="fig-note" x="470" y="179" text-anchor="middle">a（上向きに加速）</text></g>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="265" y="170" width="70" height="70" rx="2"/>
+  </g>
+  <text class="fig-note" x="300" y="380" text-anchor="middle">地上から見た図</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="300" cy="205" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="ATTACH" data-inward="270" data-body="a" cx="300" cy="170" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="300" cy="240" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="265" cy="205" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="335" cy="205" r="1" opacity="0"/>
+</svg>

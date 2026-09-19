@@ -1,0 +1,84 @@
+{
+  "id": "A09",
+  "title": "水平に押しても動かない物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A09.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "あらい床の上の物体を手で水平に押しているが、物体は動かない。",
+  "tags": [
+    "静止摩擦力",
+    "つりあい",
+    "垂直抗力"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "物体にはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "PUSH",
+        "FRICTION_STATIC",
+        "FRICTION_KINETIC",
+        "DUMMY_MOTION_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "FLOOR",
+          "snap": "a-bottom",
+          "angle": 90
+        },
+        {
+          "key": "aP",
+          "type": "PUSH",
+          "from": "HAND",
+          "snap": "a-left",
+          "angle": 0
+        },
+        {
+          "key": "aF",
+          "type": "FRICTION_STATIC",
+          "from": "FLOOR",
+          "snap": "a-bottom",
+          "angle": 180
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aP",
+      "op": "=",
+      "b": "aF",
+      "note": "水平方向のつりあい",
+      "mc": "MC_PUSH_EQUALS_FRICTION"
+    },
+    {
+      "a": "aN",
+      "op": "=",
+      "b": "aG",
+      "note": "鉛直方向のつりあい"
+    }
+  ],
+  "misconception": {
+    "WRONG_ANGLE:aF": "MC_FRICTION_DIRECTION"
+  },
+  "explanation": "動いていないので、水平方向は押す力と静止摩擦力がつりあっています（大きさが等しい）。静止摩擦力の向きは「すべろうとする向き」と逆です。"
+}

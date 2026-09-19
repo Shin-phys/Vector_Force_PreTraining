@@ -1,0 +1,121 @@
+{
+  "id": "A17",
+  "title": "接触した2物体を手で押す",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A17.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "なめらかな床の上で、接触した物体A・Bを手でAの側から押している。",
+  "tags": [
+    "作用反作用",
+    "垂直抗力",
+    "2物体"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "物体Aにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "PUSH",
+        "FRICTION_STATIC",
+        "DUMMY_MOTION_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "HAND",
+        "BODY_B"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "FLOOR",
+          "snap": "a-bottom",
+          "angle": 90
+        },
+        {
+          "key": "aP",
+          "type": "PUSH",
+          "from": "HAND",
+          "snap": "a-left",
+          "angle": 0
+        },
+        {
+          "key": "aR",
+          "type": "NORMAL_FORCE",
+          "from": "BODY_B",
+          "snap": "a-right",
+          "angle": 180
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "targetBody": "body-b",
+      "prompt": "物体Bにはたらく力をすべて描きなさい。",
+      "showPreviousPart": true,
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "PUSH",
+        "DUMMY_MOTION_FORCE",
+        "DUMMY_TRANSMITTED_PUSH"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "HAND",
+        "BODY_A"
+      ],
+      "answers": [
+        {
+          "key": "bG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "b-center",
+          "angle": 270
+        },
+        {
+          "key": "bN",
+          "type": "NORMAL_FORCE",
+          "from": "FLOOR",
+          "snap": "b-bottom",
+          "angle": 90
+        },
+        {
+          "key": "bP",
+          "type": "NORMAL_FORCE",
+          "from": "BODY_A",
+          "snap": "b-left",
+          "angle": 0
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aR",
+      "op": "=",
+      "b": "bP",
+      "note": "作用・反作用",
+      "mc": "MC_ACTION_REACTION_EQUAL"
+    }
+  ],
+  "misconception": {
+    "EXTRA_SOURCE:HAND@b": "MC_HAND_REACHES_B",
+    "EXTRA_TYPE:FRICTION_STATIC": "MC_FRICTION_WHEN_SMOOTH"
+  },
+  "explanation": "手が直接触れているのはAだけです。Bを押すのはAであり、AとBが互いに及ぼす力は大きさが等しく向きが逆で、別々の物体にはたらきます。"
+}

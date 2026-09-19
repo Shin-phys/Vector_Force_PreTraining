@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="50" y1="320" x2="550" y2="320"/>
+  <rect class="fig-hatch" x="50" y="320" width="500" height="16"/>
+  </g>
+  <text class="fig-note" x="548" y="354" text-anchor="end">あらい床</text>
+  <line class="fig-string" data-role="scenery" x1="350" y1="250" x2="419" y2="210"/>
+  <polyline class="fig-scenery" stroke-width="1.5" points="388,250 388,248.6 387.9,247.2 387.8,245.7 387.6,244.3 387.3,242.9 387,241.5 386.7,240.2 386.3,238.8 385.9,237.4 385.4,236.1 384.8,234.8 384.2,233.5 383.6,232.2 382.9,231"/><text class="fig-note" x="411.8" y="238.4" text-anchor="middle">θ=30°</text>
+  <g data-role="scenery"><line class="fig-guide" x1="140" y1="240" x2="185" y2="240"/><polygon class="fig-guide-solid" points="196,240 185,245 185,235"/><text class="fig-note" x="208" y="245" text-anchor="middle">v（等速）</text></g>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="240" y="250" width="110" height="70" rx="2"/>
+  </g>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="295" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="295" cy="320" r="1" opacity="0"/>
+  <circle data-snap="a-attach" data-snap-type="ATTACH" data-inward="225" data-body="a" cx="350" cy="250" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="295" cy="250" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="240" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="350" cy="285" r="1" opacity="0"/>
+</svg>

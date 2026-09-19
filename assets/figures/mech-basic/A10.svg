@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <rect class="fig-hatch" x="94" y="180" width="16" height="156"/>
+  <line class="fig-scenery" x1="110" y1="180" x2="110" y2="336"/>
+  </g>
+  <text class="fig-note" x="84" y="174" text-anchor="end">かべ</text>
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="50" y1="320" x2="550" y2="320"/>
+  <rect class="fig-hatch" x="50" y="320" width="500" height="16"/>
+  </g>
+  <text class="fig-note" x="548" y="354" text-anchor="end">なめらかな床</text>
+  <polyline class="fig-spring" data-role="scenery" points="110,285 120,285 124,298 132,272 140,298 148,272 156,298 164,272 172,298 180,272 188,298 196,272 200,285 210,285"/>
+  <g data-role="scenery"><line class="fig-guide" x1="260" y1="230" x2="311" y2="230"/><polygon class="fig-guide-solid" points="322,230 311,235 311,225"/><text class="fig-note" x="334" y="235" text-anchor="middle">v</text></g>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="210" y="250" width="100" height="70" rx="2"/>
+  </g>
+  <text class="fig-note" x="546" y="240" text-anchor="end">ばねは縮んでいる</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="260" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="260" cy="320" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="260" cy="250" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="ATTACH" data-inward="0" data-body="a" cx="210" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="310" cy="285" r="1" opacity="0"/>
+</svg>

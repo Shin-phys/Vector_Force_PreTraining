@@ -1,0 +1,86 @@
+/* 色・線幅・フォントの共通変数。SVGの図からも var() で参照する */
+:root {
+  color-scheme: light dark;
+
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #eef1f5;
+  --text: #17202a;
+  --text-dim: #5b6775;
+  --border: #d3d9e0;
+
+  --outline: #2b3440;        /* 物体の輪郭 */
+  --scenery: #4a5561;        /* 床・壁・斜面・糸 */
+  --hatch: #8e99a6;
+  --guide: #9aa5b1;          /* 速度など補助表示 */
+
+  --body-a-fill: #dbeafe;
+  --body-b-fill: #ffe8cc;
+
+  --force-a: #1d4ed8;        /* 物体Aにはたらく力 */
+  --force-b: #c2410c;        /* 物体Bにはたらく力 */
+  --force-prev: #9aa5b1;     /* 前パートの残存表示 */
+  --force-answer: #0f766e;   /* 正解の重ね表示 */
+  --force-dummy: #7e22ce;
+
+  --ok: #15803d;
+  --ng: #b91c1c;
+  --warn: #b45309;
+  --accent: #1d4ed8;
+  --accent-ink: #ffffff;
+
+  --w-outline: 3;
+  --w-scenery: 3;
+  --w-string: 1.5;
+  --w-force: 3.2;
+
+  --radius: 12px;
+  --font: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d;
+    --panel: #1b222b;
+    --panel-2: #232c37;
+    --text: #e8edf3;
+    --text-dim: #9fb0c0;
+    --border: #33404e;
+
+    --outline: #e8edf3;
+    --scenery: #b8c5d2;
+    --hatch: #7c8a98;
+    --guide: #8795a3;
+
+    --body-a-fill: #1e3a5f;
+    --body-b-fill: #4a2f12;
+
+    --force-a: #7dafff;
+    --force-b: #ffa066;
+    --force-prev: #6b7a89;
+    --force-answer: #5eead4;
+    --force-dummy: #d8b4fe;
+
+    --ok: #4ade80;
+    --ng: #fca5a5;
+    --warn: #fcd34d;
+    --accent: #3b82f6;
+    --accent-ink: #0b1016;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #12171d; --panel: #1b222b; --panel-2: #232c37;
+  --text: #e8edf3; --text-dim: #9fb0c0; --border: #33404e;
+  --outline: #e8edf3; --scenery: #b8c5d2; --hatch: #7c8a98; --guide: #8795a3;
+  --body-a-fill: #1e3a5f; --body-b-fill: #4a2f12;
+  --force-a: #7dafff; --force-b: #ffa066; --force-prev: #6b7a89;
+  --force-answer: #5eead4; --force-dummy: #d8b4fe;
+  --ok: #4ade80; --ng: #fca5a5; --warn: #fcd34d;
+  --accent: #3b82f6; --accent-ink: #0b1016;
+}
+
+:root[data-contrast="high"] {
+  --outline: #000000; --scenery: #000000; --body-a-fill: #ffffff; --body-b-fill: #ffffff;
+  --force-a: #0000cc; --force-b: #cc3300; --border: #000000;
+}

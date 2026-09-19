@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="60" y1="320" x2="540" y2="320"/>
+  <rect class="fig-hatch" x="60" y="320" width="480" height="16"/>
+  </g>
+  <text class="fig-note" x="538" y="354" text-anchor="end">机（水平面）</text>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="250" y="250" width="100" height="70" rx="2"/>
+  </g>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="300" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="300" cy="320" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="300" cy="250" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="250" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="350" cy="285" r="1" opacity="0"/>
+</svg>

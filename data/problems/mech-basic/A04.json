@@ -1,0 +1,49 @@
+{
+  "id": "A04",
+  "title": "鉛直に投げ上げた小球の最高点",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A04.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "鉛直に投げ上げた小球が最高点に達した瞬間である。空気抵抗は無視する。",
+  "tags": [
+    "重力",
+    "誤概念",
+    "放物運動"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "この瞬間、小球にはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "AIR_RESISTANCE",
+        "DUMMY_MOTION_FORCE",
+        "DUMMY_RISING_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "AIR",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        }
+      ]
+    }
+  ],
+  "relations": [],
+  "misconception": {
+    "MISSING:aG": "MC_STOP_MEANS_NO_FORCE",
+    "EXTRA_ANY": "MC_EXTRA_ANY"
+  },
+  "explanation": "速さが0の瞬間でも、はたらく力は重力だけです。速さが0であることと、力が0であることは別のことです。"
+}

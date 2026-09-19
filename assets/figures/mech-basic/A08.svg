@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="50" y1="320" x2="550" y2="320"/>
+  <rect class="fig-hatch" x="50" y="320" width="500" height="16"/>
+  </g>
+  <text class="fig-note" x="548" y="354" text-anchor="end">あらい床</text>
+  <g data-role="scenery"><line class="fig-guide" x1="290" y1="230" x2="341" y2="230"/><polygon class="fig-guide-solid" points="352,230 341,235 341,225"/><text class="fig-note" x="364" y="235" text-anchor="middle">v</text></g>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="240" y="250" width="100" height="70" rx="2"/>
+  </g>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="290" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="290" cy="320" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="290" cy="250" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="240" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="340" cy="285" r="1" opacity="0"/>
+</svg>

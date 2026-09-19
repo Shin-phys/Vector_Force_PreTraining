@@ -1,0 +1,121 @@
+{
+  "id": "A19",
+  "title": "滑車を介して糸でつないだ2物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A19.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "なめらかな机の上の物体Aと、机の端の滑車を通してつるしたおもりBが、軽い1本の糸で結ばれ、動き出している。",
+  "tags": [
+    "張力",
+    "2物体",
+    "大きさの関係",
+    "作用反作用"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "机の上の物体Aにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "TENSION",
+        "FRICTION_KINETIC",
+        "DUMMY_MOTION_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "TABLE",
+        "STRING",
+        "PULLEY",
+        "BODY_B"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "TABLE",
+          "snap": "a-bottom",
+          "angle": 90
+        },
+        {
+          "key": "aT",
+          "type": "TENSION",
+          "from": "STRING",
+          "snap": "a-right",
+          "angle": 0
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "targetBody": "body-b",
+      "prompt": "つるしたおもりBにはたらく力をすべて描きなさい。",
+      "showPreviousPart": true,
+      "availableForces": [
+        "GRAVITY",
+        "TENSION",
+        "NORMAL_FORCE",
+        "DUMMY_MOTION_FORCE"
+      ],
+      "availableSources": [
+        "EARTH",
+        "STRING",
+        "PULLEY",
+        "BODY_A"
+      ],
+      "answers": [
+        {
+          "key": "bG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "b-center",
+          "angle": 270
+        },
+        {
+          "key": "bT",
+          "type": "TENSION",
+          "from": "STRING",
+          "snap": "b-top",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aT",
+      "op": "=",
+      "b": "bT",
+      "note": "1本の糸の張力",
+      "mc": "MC_TENSION_BOTH_ENDS"
+    },
+    {
+      "a": "bT",
+      "op": "<",
+      "b": "bG",
+      "note": "Bは下向きに加速する"
+    },
+    {
+      "a": "aN",
+      "op": "=",
+      "b": "aG",
+      "note": "Aの鉛直方向のつりあい"
+    }
+  ],
+  "misconception": {
+    "WRONG_SOURCE:aT": "MC_TENSION_SOURCE",
+    "WRONG_SOURCE:bT": "MC_TENSION_SOURCE",
+    "EXTRA_TYPE:FRICTION_KINETIC": "MC_FRICTION_WHEN_SMOOTH"
+  },
+  "explanation": "軽い1本の糸なので、両端にはたらく張力の大きさは等しくなります。Bは下向きに加速しているので、張力はBの重力より小さくなります（つりあってはいません）。"
+}

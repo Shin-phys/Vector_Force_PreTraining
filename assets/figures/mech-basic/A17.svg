@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="50" y1="320" x2="550" y2="320"/>
+  <rect class="fig-hatch" x="50" y="320" width="500" height="16"/>
+  </g>
+  <text class="fig-note" x="548" y="354" text-anchor="end">なめらかな床</text>
+  <rect class="fig-scenery" fill="var(--panel-2)" x="176" y="266" width="54" height="34" rx="12"/>
+  <text class="fig-note" x="203" y="254" text-anchor="middle">手</text>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="230" y="250" width="100" height="70" rx="2"/>
+  </g>
+  <text class="fig-label" x="280" y="291" text-anchor="middle">A</text>
+  <g id="body-b" data-role="body">
+  <rect data-role="outline" class="fig-body-b" x="330" y="250" width="100" height="70" rx="2"/>
+  </g>
+  <text class="fig-label" x="380" y="291" text-anchor="middle">B</text>
+  <text class="fig-note" x="546" y="240" text-anchor="end">手で右向きに押している</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="280" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="280" cy="320" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="230" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="CONTACT" data-inward="180" data-body="a" cx="330" cy="285" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="280" cy="250" r="1" opacity="0"/>
+  <circle data-snap="b-center" data-snap-type="CENTER" data-body="b" cx="380" cy="285" r="1" opacity="0"/>
+  <circle data-snap="b-bottom" data-snap-type="CONTACT" data-inward="90" data-body="b" cx="380" cy="320" r="1" opacity="0"/>
+  <circle data-snap="b-left" data-snap-type="CONTACT" data-inward="0" data-body="b" cx="330" cy="285" r="1" opacity="0"/>
+  <circle data-snap="b-right" data-snap-type="CONTACT" data-inward="180" data-body="b" cx="430" cy="285" r="1" opacity="0"/>
+  <circle data-snap="b-top" data-snap-type="CONTACT" data-inward="270" data-body="b" cx="380" cy="250" r="1" opacity="0"/>
+</svg>

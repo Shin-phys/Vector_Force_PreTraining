@@ -1,0 +1,436 @@
+{
+  "version": 1,
+  "units": [
+    {
+      "key": "mech-basic",
+      "code": "A",
+      "label": "力学基礎編",
+      "course": "物理基礎"
+    }
+  ],
+  "problems": [
+    {
+      "id": "A01",
+      "title": "水平な机に置かれた物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "垂直抗力",
+        "つりあい"
+      ],
+      "path": "data/problems/mech-basic/A01.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "title": "天井から糸でつるしたおもり",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "張力",
+        "つりあい"
+      ],
+      "path": "data/problems/mech-basic/A02.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "title": "ばねにつるして静止したおもり",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "弾性力",
+        "つりあい"
+      ],
+      "path": "data/problems/mech-basic/A03.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "title": "鉛直に投げ上げた小球の最高点",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "誤概念",
+        "放物運動"
+      ],
+      "path": "data/problems/mech-basic/A04.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 1
+        }
+      ]
+    },
+    {
+      "id": "A05",
+      "title": "斜方投射：上昇中の小球",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "放物運動",
+        "誤概念",
+        "セット問題"
+      ],
+      "path": "data/problems/mech-basic/A05.json",
+      "partCount": 1,
+      "sceneSet": "projectile",
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 1
+        }
+      ]
+    },
+    {
+      "id": "A06",
+      "title": "斜方投射：最高点の小球",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "放物運動",
+        "誤概念",
+        "セット問題"
+      ],
+      "path": "data/problems/mech-basic/A06.json",
+      "partCount": 1,
+      "sceneSet": "projectile",
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 1
+        }
+      ]
+    },
+    {
+      "id": "A07",
+      "title": "斜方投射：下降中の小球",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "重力",
+        "放物運動",
+        "誤概念",
+        "セット問題"
+      ],
+      "path": "data/problems/mech-basic/A07.json",
+      "partCount": 1,
+      "sceneSet": "projectile",
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 1
+        }
+      ]
+    },
+    {
+      "id": "A08",
+      "title": "手を離れたあと、あらい床をすべる物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "動摩擦力",
+        "垂直抗力",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A08.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A09",
+      "title": "水平に押しても動かない物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "静止摩擦力",
+        "つりあい",
+        "垂直抗力"
+      ],
+      "path": "data/problems/mech-basic/A09.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 4
+        }
+      ]
+    },
+    {
+      "id": "A10",
+      "title": "押し縮めたばねに押される物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "弾性力",
+        "垂直抗力",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A10.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A11",
+      "title": "斜め上に糸で引かれ、あらい床を等速で動く物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "垂直抗力",
+        "動摩擦力",
+        "張力",
+        "大きさの関係"
+      ],
+      "path": "data/problems/mech-basic/A11.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 4
+        }
+      ]
+    },
+    {
+      "id": "A12",
+      "title": "手で壁に押し付けて静止させた物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "静止摩擦力",
+        "垂直抗力",
+        "つりあい",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A12.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 4
+        }
+      ]
+    },
+    {
+      "id": "A13",
+      "title": "2本の糸でつるしたおもり",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "張力",
+        "3力のつりあい",
+        "大きさの関係"
+      ],
+      "path": "data/problems/mech-basic/A13.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A14",
+      "title": "なめらかな斜面をすべり下りる物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "斜面",
+        "垂直抗力",
+        "分力",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A14.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        }
+      ]
+    },
+    {
+      "id": "A15",
+      "title": "あらい斜面上で静止する物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "斜面",
+        "静止摩擦力",
+        "垂直抗力",
+        "大きさの関係"
+      ],
+      "path": "data/problems/mech-basic/A15.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A16",
+      "title": "あらい斜面をすべり上がる物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "斜面",
+        "動摩擦力",
+        "垂直抗力",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A16.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A17",
+      "title": "接触した2物体を手で押す",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "作用反作用",
+        "垂直抗力",
+        "2物体"
+      ],
+      "path": "data/problems/mech-basic/A17.json",
+      "partCount": 2,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 4
+        },
+        {
+          "id": "b",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A18",
+      "title": "床の上に重ねて静止させた2物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "作用反作用",
+        "垂直抗力",
+        "2物体",
+        "誤概念"
+      ],
+      "path": "data/problems/mech-basic/A18.json",
+      "partCount": 2,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        },
+        {
+          "id": "b",
+          "answerCount": 3
+        }
+      ]
+    },
+    {
+      "id": "A19",
+      "title": "滑車を介して糸でつないだ2物体",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "張力",
+        "2物体",
+        "大きさの関係",
+        "作用反作用"
+      ],
+      "path": "data/problems/mech-basic/A19.json",
+      "partCount": 2,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 3
+        },
+        {
+          "id": "b",
+          "answerCount": 2
+        }
+      ]
+    },
+    {
+      "id": "A20",
+      "title": "加速しながら上昇するエレベーター内のおもり（地上から見る）",
+      "unit": "mech-basic",
+      "course": "物理基礎",
+      "tags": [
+        "張力",
+        "慣性系",
+        "誤概念",
+        "大きさの関係"
+      ],
+      "path": "data/problems/mech-basic/A20.json",
+      "partCount": 1,
+      "sceneSet": null,
+      "parts": [
+        {
+          "id": "a",
+          "answerCount": 2
+        }
+      ]
+    }
+  ]
+}

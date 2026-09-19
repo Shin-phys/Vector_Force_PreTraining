@@ -1,0 +1,63 @@
+{
+  "id": "A01",
+  "title": "水平な机に置かれた物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A01.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "水平な机の上に物体が静止している。",
+  "tags": [
+    "重力",
+    "垂直抗力",
+    "つりあい"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "物体にはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "FRICTION_STATIC",
+        "PUSH"
+      ],
+      "availableSources": [
+        "EARTH",
+        "TABLE",
+        "FLOOR",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "TABLE",
+          "snap": "a-bottom",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aN",
+      "op": "=",
+      "b": "aG",
+      "note": "つりあい"
+    }
+  ],
+  "misconception": {
+    "WRONG_POINT:aN": "MC_NORMAL_AT_CENTER",
+    "EXTRA_TYPE:FRICTION_STATIC": "MC_FRICTION_WHEN_SMOOTH"
+  },
+  "explanation": "物体に触れているのは机だけです。重力は重心から鉛直下向き、垂直抗力は接触面から面に垂直な向き（鉛直上向き）にはたらきます。静止しているので大きさは等しくなります。"
+}

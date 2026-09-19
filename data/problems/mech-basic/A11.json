@@ -1,0 +1,85 @@
+{
+  "id": "A11",
+  "title": "斜め上に糸で引かれ、あらい床を等速で動く物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A11.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "あらい床の上の物体を、水平から30°上向きの糸で引き、右向きに一定の速さで動かしている。",
+  "tags": [
+    "垂直抗力",
+    "動摩擦力",
+    "張力",
+    "大きさの関係"
+  ],
+  "angleAnchors": [
+    30,
+    210
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "物体にはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "TENSION",
+        "FRICTION_KINETIC",
+        "DUMMY_MOTION_FORCE",
+        "DUMMY_COMPONENT"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "STRING",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "FLOOR",
+          "snap": "a-bottom",
+          "angle": 90
+        },
+        {
+          "key": "aT",
+          "type": "TENSION",
+          "from": "STRING",
+          "snap": "a-attach",
+          "angle": 30
+        },
+        {
+          "key": "aF",
+          "type": "FRICTION_KINETIC",
+          "from": "FLOOR",
+          "snap": "a-bottom",
+          "angle": 180
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aN",
+      "op": "<",
+      "b": "aG",
+      "note": "N は mg より小さい",
+      "mc": "MC_NORMAL_EQUALS_WEIGHT"
+    }
+  ],
+  "misconception": {
+    "WRONG_ANGLE:aT": "MC_TENSION_NOT_ALONG_STRING",
+    "WRONG_POINT:aT": "MC_TENSION_AT_CENTER"
+  },
+  "explanation": "張力には上向きの成分があるため、床が押し返す力（垂直抗力）は重力より小さくなります。N＝mg とは限りません。"
+}

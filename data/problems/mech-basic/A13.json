@@ -1,0 +1,72 @@
+{
+  "id": "A13",
+  "title": "2本の糸でつるしたおもり",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A13.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "おもりを2本の糸でつるして静止させている。どちらの糸も水平から45°の向きである。",
+  "tags": [
+    "張力",
+    "3力のつりあい",
+    "大きさの関係"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "おもりにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "TENSION",
+        "NORMAL_FORCE",
+        "DUMMY_RESTORING"
+      ],
+      "availableSources": [
+        "EARTH",
+        "STRING_L",
+        "STRING_R",
+        "CEILING"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aTL",
+          "type": "TENSION",
+          "from": "STRING_L",
+          "snap": "a-attach-l",
+          "angle": 135
+        },
+        {
+          "key": "aTR",
+          "type": "TENSION",
+          "from": "STRING_R",
+          "snap": "a-attach-r",
+          "angle": 45
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aTL",
+      "op": "=",
+      "b": "aTR",
+      "note": "左右対称"
+    }
+  ],
+  "misconception": {
+    "WRONG_ANGLE:aTL": "MC_TENSION_NOT_ALONG_STRING",
+    "WRONG_ANGLE:aTR": "MC_TENSION_NOT_ALONG_STRING",
+    "WRONG_POINT:aTL": "MC_TENSION_AT_CENTER",
+    "WRONG_POINT:aTR": "MC_TENSION_AT_CENTER"
+  },
+  "explanation": "張力は必ず糸に沿う向きです。左右対称なので2本の張力の大きさは等しく、鉛直成分の和が重力とつりあいます。"
+}

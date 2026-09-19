@@ -1,0 +1,63 @@
+{
+  "id": "A02",
+  "title": "天井から糸でつるしたおもり",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A02.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "天井から軽い糸でつるしたおもりが静止している。",
+  "tags": [
+    "重力",
+    "張力",
+    "つりあい"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "おもりにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "TENSION",
+        "NORMAL_FORCE",
+        "ELASTIC"
+      ],
+      "availableSources": [
+        "EARTH",
+        "STRING",
+        "CEILING",
+        "HAND"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aT",
+          "type": "TENSION",
+          "from": "STRING",
+          "snap": "a-top",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aT",
+      "op": "=",
+      "b": "aG",
+      "note": "つりあい"
+    }
+  ],
+  "misconception": {
+    "WRONG_POINT:aT": "MC_TENSION_AT_CENTER",
+    "WRONG_SOURCE:aT": "MC_TENSION_SOURCE"
+  },
+  "explanation": "張力の作用点は、糸が物体に取り付けられている点です。向きは糸に沿って糸が引く向き（鉛直上向き）になります。"
+}

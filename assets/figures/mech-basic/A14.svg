@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="50" y1="320" x2="560" y2="320"/>
+  <rect class="fig-hatch" x="50" y="320" width="510" height="16"/>
+  </g>
+  <g data-role="scenery">
+  <polygon class="fig-hatch" points="100,89 100,320 500,320"/>
+  <polyline class="fig-scenery" fill="none" points="100,89 100,320 500,320 100,89"/>
+  </g>
+  <polyline class="fig-scenery" stroke-width="1.5" points="455,294 454,295.7 453.1,297.4 452.3,299.2 451.6,301 450.9,302.8 450.3,304.7 449.8,306.5 449.3,308.4 448.9,310.3 448.6,312.2 448.3,314.2 448.1,316.1 448,318.1 448,320"/><text class="fig-note" x="424.7" y="304.8" text-anchor="middle">θ=30°</text>
+  <g data-role="scenery"><line class="fig-guide" x1="325" y1="112" x2="365.7" y2="135.5"/><polygon class="fig-guide-solid" points="375.2,141 363.2,139.8 368.2,131.2"/><text class="fig-note" x="385.6" y="152" text-anchor="middle">v</text></g>
+  <g id="body-a" data-role="body">
+  <polygon data-role="outline" class="fig-body-a" points="241,170.4 271,118.5 349,163.5 319,215.4"/>
+  </g>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="295" cy="167" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="60" data-body="a" cx="280" cy="192.9" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="240" data-body="a" cx="310" cy="141" r="1" opacity="0"/>
+  <circle data-snap="a-up" data-snap-type="CONTACT" data-inward="330" data-body="a" cx="256" cy="144.5" r="1" opacity="0"/>
+  <circle data-snap="a-down" data-snap-type="CONTACT" data-inward="150" data-body="a" cx="334" cy="189.5" r="1" opacity="0"/>
+  <text class="fig-note" x="70" y="380" text-anchor="start">なめらかな斜面（θ=30°）</text>
+</svg>

@@ -1,0 +1,18 @@
+name: validate
+
+# 問題データと図の整合性を push のたびに確認する
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: JSONと図の整合性チェック
+        run: node tools/validate.mjs

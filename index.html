@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>力の作図トレーナー</title>
+<link rel="stylesheet" href="src/css/tokens.css">
+<link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+<div id="app" aria-live="polite"></div>
+
+<div id="file-warning" hidden>
+  <div class="card">
+    <h2>ローカルサーバーが必要です</h2>
+    <p>このアプリは問題データ（JSON）と図（SVG）を読み込むため、<code>file://</code> で直接開くと動きません。
+    フォルダ内の <code>tools/serve.command</code> をダブルクリックするか、ターミナルで次を実行してください。</p>
+    <pre>cd "このフォルダ"
+python3 -m http.server 8000</pre>
+    <p>そのあとブラウザで <code>http://localhost:8000/</code> を開きます。</p>
+  </div>
+</div>
+
+<script type="module" src="src/js/main.js"></script>
+<script>
+  if (location.protocol === 'file:') {
+    document.getElementById('file-warning').hidden = false;
+    document.getElementById('app').hidden = true;
+  }
+</script>
+</body>
+</html>

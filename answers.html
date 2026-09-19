@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>解答例一覧｜力の作図トレーナー</title>
+<link rel="stylesheet" href="src/css/tokens.css">
+<link rel="stylesheet" href="src/css/style.css">
+<style>
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+  .ans-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+  .ans-card h3 { margin: 0 0 6px; font-size: .95rem; }
+  .ans-card .figure-wrap { border-radius: 8px; }
+  .ans-card ul { margin: 6px 0 0; padding-left: 1.2em; font-size: .82rem; color: var(--text-dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>解答例一覧</h1>
+  <p class="muted">各問題の正解を重ねて表示します（授業準備・答え合わせ用）。<a href="index.html">アプリに戻る</a></p>
+  <div class="grid" id="grid"></div>
+</div>
+<script type="module">
+import { FigureRenderer, forceLabel } from './src/js/canvas/renderer.js';
+import { dirLabel } from './src/js/ui/dom.js';
+import { answerSteps } from './src/js/logic/relations.js';
+import { lengthOfStep } from './src/js/canvas/geometry.js';
+const [index, cat] = await Promise.all([
+  fetch('data/index.json').then(r => r.json()),
+  fetch('data/forces.json').then(r => r.json())
+]);
+const catalog = { forces: cat.forces || cat, sources: cat.sources || {} };
+const grid = document.getElementById('grid');
+for (const e of index.problems) {
+  const p = await fetch(e.path).then(r => r.json());
+  const st = answerSteps(p);
+  for (const part of p.parts) {
+    const body = (part.targetBody || 'body-a').replace('body-', '');
+    const card = document.createElement('div');
+    card.className = 'ans-card';
+    card.innerHTML = `<h3>${p.id}${p.parts.length > 1 ? `（${part.id}）` : ''}　${p.title}</h3>
+      <div class="figure-wrap"></div>
+      <ul>${(part.answers || []).map(a =>
+        `<li>${forceLabel({ ...a, body }, catalog)}　${dirLabel(a.angle)}　作用点 ${a.snap}</li>`).join('')}
+      ${(p.relations || []).map(r => `<li>関係：${r.a} ${r.op} ${r.b}${r.note ? `（${r.note}）` : ''}</li>`).join('')}</ul>`;
+    grid.appendChild(card);
+    const r = new FigureRenderer(card.querySelector('.figure-wrap'));
+    await r.mount(p.figure);
+    r.catalog = catalog;
+    r.drawForces((part.answers || []).map(a => ({
+      ...a, body, step: st[a.key], length: lengthOfStep(st[a.key])
+    })));
+  }
+}
+document.body.dataset.ready = '1';
+</script>
+</body>
+</html>

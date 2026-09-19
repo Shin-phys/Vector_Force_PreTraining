@@ -1,0 +1,78 @@
+{
+  "id": "A16",
+  "title": "あらい斜面をすべり上がる物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A16.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "あらい斜面（傾き30°）を、物体が斜面に沿って上向きにすべり上がっている。",
+  "tags": [
+    "斜面",
+    "動摩擦力",
+    "垂直抗力",
+    "誤概念"
+  ],
+  "angleAnchors": [
+    60,
+    150,
+    240,
+    330
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "物体にはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "FRICTION_KINETIC",
+        "FRICTION_STATIC",
+        "DUMMY_MOTION_FORCE",
+        "DUMMY_COMPONENT"
+      ],
+      "availableSources": [
+        "EARTH",
+        "SLOPE",
+        "FLOOR"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "SLOPE",
+          "snap": "a-bottom",
+          "angle": 60
+        },
+        {
+          "key": "aF",
+          "type": "FRICTION_KINETIC",
+          "from": "SLOPE",
+          "snap": "a-bottom",
+          "angle": 330
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aN",
+      "op": "<",
+      "b": "aG",
+      "note": "N は mg より小さい",
+      "mc": "MC_NORMAL_EQUALS_WEIGHT"
+    }
+  ],
+  "misconception": {
+    "WRONG_ANGLE:aF": "MC_FRICTION_DIRECTION"
+  },
+  "explanation": "動摩擦力の向きは、物体が面に対してすべる向きと逆です。上向きにすべっているので、動摩擦力は斜面に沿って下向きになります。上り坂でも「進む向きの力」は描きません。"
+}

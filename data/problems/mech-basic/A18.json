@@ -1,0 +1,103 @@
+{
+  "id": "A18",
+  "title": "床の上に重ねて静止させた2物体",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A18.svg",
+  "frame": "GROUND",
+  "sceneSet": null,
+  "prompt": "床の上に物体Bを置き、その上に物体Aを重ねて静止させている。",
+  "tags": [
+    "作用反作用",
+    "垂直抗力",
+    "2物体",
+    "誤概念"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "上の物体Aにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "PUSH",
+        "FRICTION_STATIC"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "BODY_B"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aN",
+          "type": "NORMAL_FORCE",
+          "from": "BODY_B",
+          "snap": "a-bottom",
+          "angle": 90
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "targetBody": "body-b",
+      "prompt": "下の物体Bにはたらく力をすべて描きなさい。",
+      "showPreviousPart": true,
+      "availableForces": [
+        "GRAVITY",
+        "NORMAL_FORCE",
+        "PUSH",
+        "DUMMY_WEIGHT_TRANSMITTED"
+      ],
+      "availableSources": [
+        "EARTH",
+        "FLOOR",
+        "BODY_A"
+      ],
+      "answers": [
+        {
+          "key": "bG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "b-center",
+          "angle": 270
+        },
+        {
+          "key": "bNa",
+          "type": "NORMAL_FORCE",
+          "from": "BODY_A",
+          "snap": "b-top",
+          "angle": 270
+        },
+        {
+          "key": "bNf",
+          "type": "NORMAL_FORCE",
+          "from": "FLOOR",
+          "snap": "b-bottom",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aN",
+      "op": "=",
+      "b": "bNa",
+      "note": "作用・反作用",
+      "mc": "MC_ACTION_REACTION_EQUAL"
+    }
+  ],
+  "misconception": {
+    "WRONG_SOURCE:aN": "MC_WEIGHT_NOT_TRANSMITTED"
+  },
+  "explanation": "Aが面から受ける垂直抗力の相手はBです（床ではありません）。Bには「Aの重力」ではなく「Aから押される力」がはたらきます。重力は地球が各物体を引く力で、他の物体に移ることはありません。"
+}

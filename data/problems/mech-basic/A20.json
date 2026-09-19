@@ -1,0 +1,65 @@
+{
+  "id": "A20",
+  "title": "加速しながら上昇するエレベーター内のおもり（地上から見る）",
+  "unit": "mech-basic",
+  "course": "物理基礎",
+  "figure": "assets/figures/mech-basic/A20.svg",
+  "frame": "GROUND",
+  "observer": "地上の観測者",
+  "sceneSet": null,
+  "prompt": "エレベーターが上向きに加速しながら上昇している。その天井から糸でつるしたおもりを、地上の観測者から見て考える。",
+  "tags": [
+    "張力",
+    "慣性系",
+    "誤概念",
+    "大きさの関係"
+  ],
+  "parts": [
+    {
+      "id": "a",
+      "targetBody": "body-a",
+      "prompt": "地上から見て、おもりにはたらく力をすべて描きなさい。",
+      "availableForces": [
+        "GRAVITY",
+        "TENSION",
+        "NORMAL_FORCE",
+        "DUMMY_INERTIA"
+      ],
+      "availableSources": [
+        "EARTH",
+        "STRING",
+        "CEILING",
+        "ELEVATOR"
+      ],
+      "answers": [
+        {
+          "key": "aG",
+          "type": "GRAVITY",
+          "from": "EARTH",
+          "snap": "a-center",
+          "angle": 270
+        },
+        {
+          "key": "aT",
+          "type": "TENSION",
+          "from": "STRING",
+          "snap": "a-top",
+          "angle": 90
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "a": "aT",
+      "op": ">",
+      "b": "aG",
+      "note": "上向きに加速しているため",
+      "mc": "MC_TENSION_EQUALS_WEIGHT"
+    }
+  ],
+  "misconception": {
+    "WRONG_SOURCE:aT": "MC_TENSION_SOURCE"
+  },
+  "explanation": "地面（慣性系）から見ているので、慣性力は描きません。おもりは上向きに加速しているので、張力は重力より大きくなります。"
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <g data-role="scenery">
+  <line class="fig-scenery" x1="40" y1="200" x2="390" y2="200"/>
+  <rect class="fig-hatch" x="40" y="200" width="350" height="16"/>
+  </g>
+  <text class="fig-note" x="384" y="238" text-anchor="end">机</text>
+  <g data-role="scenery"><circle class="fig-scenery" cx="400" cy="187" r="22" fill="none"/><circle cx="400" cy="187" r="3" fill="var(--scenery)"/></g>
+  <line class="fig-string" data-role="scenery" x1="230" y1="165" x2="400" y2="165"/>
+  <line class="fig-string" data-role="scenery" x1="422" y1="187" x2="422" y2="262"/>
+  <path class="fig-string" d="M 400 165 A 22 22 0 0 1 422 187" fill="none"/>
+  <g data-role="scenery"><line class="fig-guide" x1="90" y1="108" x2="131" y2="108"/><polygon class="fig-guide-solid" points="142,108 131,113 131,103"/><text class="fig-note" x="154" y="113" text-anchor="middle">v</text></g>
+  <g data-role="scenery"><line class="fig-guide" x1="530" y1="250" x2="530" y2="287"/><polygon class="fig-guide-solid" points="530,298 525,287 535,287"/><text class="fig-note" x="530" y="315" text-anchor="middle">v</text></g>
+  <g id="body-a" data-role="body">
+  <rect data-role="outline" class="fig-body-a" x="130" y="130" width="100" height="70" rx="2"/>
+  </g>
+  <text class="fig-label" x="180" y="171" text-anchor="middle">A</text>
+  <g id="body-b" data-role="body">
+  <rect data-role="outline" class="fig-body-b" x="387" y="262" width="70" height="60" rx="2"/>
+  </g>
+  <text class="fig-label" x="422" y="298" text-anchor="middle">B</text>
+  <circle data-snap="a-center" data-snap-type="CENTER" data-body="a" cx="180" cy="165" r="1" opacity="0"/>
+  <circle data-snap="a-bottom" data-snap-type="CONTACT" data-inward="90" data-body="a" cx="180" cy="200" r="1" opacity="0"/>
+  <circle data-snap="a-right" data-snap-type="ATTACH" data-inward="180" data-body="a" cx="230" cy="165" r="1" opacity="0"/>
+  <circle data-snap="a-left" data-snap-type="CONTACT" data-inward="0" data-body="a" cx="130" cy="165" r="1" opacity="0"/>
+  <circle data-snap="a-top" data-snap-type="CONTACT" data-inward="270" data-body="a" cx="180" cy="130" r="1" opacity="0"/>
+  <circle data-snap="b-center" data-snap-type="CENTER" data-body="b" cx="422" cy="292" r="1" opacity="0"/>
+  <circle data-snap="b-top" data-snap-type="ATTACH" data-inward="270" data-body="b" cx="422" cy="262" r="1" opacity="0"/>
+  <circle data-snap="b-bottom" data-snap-type="CONTACT" data-inward="90" data-body="b" cx="422" cy="322" r="1" opacity="0"/>
+  <circle data-snap="b-left" data-snap-type="CONTACT" data-inward="0" data-body="b" cx="387" cy="292" r="1" opacity="0"/>
+  <circle data-snap="b-right" data-snap-type="CONTACT" data-inward="180" data-body="b" cx="457" cy="292" r="1" opacity="0"/>
+</svg>
