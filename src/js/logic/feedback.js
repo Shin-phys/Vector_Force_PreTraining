@@ -19,7 +19,7 @@ export function collectCodes(problem, part, judged, snapMap = {}, relResults = [
 
   // 1) 問題固有の対応表
   for (const it of judged.items) {
-    if (map[it.input.type]) add(map[it.input.type]);
+    if (it.input.type && map[it.input.type]) add(map[it.input.type]);
     if (it.verdict === 'EXTRA') {
       add(map[`EXTRA_SOURCE:${it.input.from}@${part.id}`]);
       add(map[`EXTRA_SOURCE:${it.input.from}`]);
@@ -31,7 +31,8 @@ export function collectCodes(problem, part, judged, snapMap = {}, relResults = [
 
   // 2) 既定のルール
   for (const it of judged.items) {
-    const t = it.input.type;
+    // 矢印だけのモードでは入力に名称が無いので、対応づいた正解の名称で判断する
+    const t = it.input.type || it.answer?.type || '';
     if (DUMMY_DEFAULT[t]) add(DUMMY_DEFAULT[t]);
     if (it.crossBody) add('MC_WRONG_BODY');
     if (it.verdict === 'WRONG_POINT') {

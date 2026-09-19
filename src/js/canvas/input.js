@@ -38,8 +38,10 @@ export class DrawInput {
   _down(e) {
     if (!this.enabled) return;
     const sel = this.h.getSelection?.() || {};
-    if (!sel.type) { this.h.onMessage?.('まず「力の名称」を選びましょう。'); return; }
-    if (!sel.from) { this.h.onMessage?.('「何から受ける力か」を選びましょう。'); return; }
+    if (this.h.requireSelection?.() !== false) {
+      if (!sel.type) { this.h.onMessage?.('まず「力の名称」を選びましょう。'); return; }
+      if (!sel.from) { this.h.onMessage?.('「何から受ける力か」を選びましょう。'); return; }
+    }
     const p = this.r.toUser(e.clientX, e.clientY);
     const snap = nearestSnap(this.h.getSnaps?.() || this.r.snaps, p);
     if (!snap) { this.h.onMessage?.('作用点（○で示される位置）をタップしてください。'); return; }
@@ -63,7 +65,7 @@ export class DrawInput {
     this.drag.raw = len;
     this.drag.step = snapLengthStep(len);
     this.drag.length = lengthOfStep(this.drag.step);
-    const sel = this.h.getSelection();
+    const sel = this.h.getSelection() || {};
     this.r.drawGhost({
       type: sel.type, from: sel.from, snap: this.drag.snap.id, angle: ang,
       length: len < CONFIG.MIN_LEN ? Math.max(len, 12) : this.drag.length,
@@ -84,9 +86,9 @@ export class DrawInput {
       this.h.onMessage?.('矢印が短すぎます。作用点から矢先へ向けてドラッグしてください。');
       return;
     }
-    const sel = this.h.getSelection();
+    const sel = this.h.getSelection() || {};
     this.h.onCommit?.({
-      type: sel.type, from: sel.from, snap: d.snap.id,
+      type: sel.type || null, from: sel.from || null, snap: d.snap.id,
       angle: d.angle, step: d.step, length: d.length
     });
     this.h.onMessage?.('');

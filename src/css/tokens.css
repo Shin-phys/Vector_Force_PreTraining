@@ -14,14 +14,14 @@
   --hatch: #8e99a6;
   --guide: #9aa5b1;          /* 速度など補助表示 */
 
-  --body-a-fill: #dbeafe;
-  --body-b-fill: #ffe8cc;
+  --body-a-fill: #e7ebf0;    /* 物体は中間色。色は力の矢印のために取っておく */
+  --body-b-fill: #f2e9e0;
 
-  --force-a: #1d4ed8;        /* 物体Aにはたらく力 */
-  --force-b: #c2410c;        /* 物体Bにはたらく力 */
+  --force-a: #0b48d0;        /* 物体Aにはたらく力 */
+  --force-b: #d34500;        /* 物体Bにはたらく力 */
   --force-prev: #9aa5b1;     /* 前パートの残存表示 */
-  --force-answer: #0f766e;   /* 正解の重ね表示 */
-  --force-dummy: #7e22ce;
+  --force-answer: #0b7d70;   /* 正解の重ね表示 */
+  --force-dummy: #8b1fd0;
 
   --ok: #15803d;
   --ng: #b91c1c;
@@ -32,7 +32,7 @@
   --w-outline: 3;
   --w-scenery: 3;
   --w-string: 1.5;
-  --w-force: 3.2;
+  --w-force: 4.8;
 
   --radius: 12px;
   --font: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
@@ -52,11 +52,11 @@
     --hatch: #7c8a98;
     --guide: #8795a3;
 
-    --body-a-fill: #1e3a5f;
-    --body-b-fill: #4a2f12;
+    --body-a-fill: #313b47;
+    --body-b-fill: #453a2e;
 
-    --force-a: #7dafff;
-    --force-b: #ffa066;
+    --force-a: #7fb4ff;
+    --force-b: #ff9f5c;
     --force-prev: #6b7a89;
     --force-answer: #5eead4;
     --force-dummy: #d8b4fe;
@@ -73,8 +73,8 @@
   --bg: #12171d; --panel: #1b222b; --panel-2: #232c37;
   --text: #e8edf3; --text-dim: #9fb0c0; --border: #33404e;
   --outline: #e8edf3; --scenery: #b8c5d2; --hatch: #7c8a98; --guide: #8795a3;
-  --body-a-fill: #1e3a5f; --body-b-fill: #4a2f12;
-  --force-a: #7dafff; --force-b: #ffa066; --force-prev: #6b7a89;
+  --body-a-fill: #313b47; --body-b-fill: #453a2e;
+  --force-a: #7fb4ff; --force-b: #ff9f5c; --force-prev: #6b7a89;
   --force-answer: #5eead4; --force-dummy: #d8b4fe;
   --ok: #4ade80; --ng: #fca5a5; --warn: #fcd34d;
   --accent: #3b82f6; --accent-ink: #0b1016;

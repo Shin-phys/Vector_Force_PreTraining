@@ -133,8 +133,15 @@
 矢印の長さは `CONFIG.LENGTH_STEPS`（既定 `[40, 65, 90, 115, 140]`）の5段階に丸められ、
 入力データは `{ step, length }` の両方を持ちます。判定に使うのは `step` です。
 
-大きさの判定は設定 `judgeMagnitude`（既定 `false`）で切り替わります。OFFのときは
-`relations` を評価せず、長さの目盛りと −／＋ ボタンも表示しません。
+判定のレベルは設定 `level` で切り替わります。
+
+| `level` | 判定するもの |
+|---|---|
+| `arrow`（既定） | 作用点・向き・過不足。名称パレットを出さず、`judgePart` を `'arrow'` モードで呼ぶ |
+| `named` | ＋ 力の名称と相手 |
+| `magnitude` | ＋ `relations`（長さの段階の大小） |
+
+`magnitude` 以外のときは `relations` を評価せず、長さの目盛りと −／＋ ボタンも表示しません。
 
 `relations` を書くときの原則：**与えられた情報だけで大小が確定するものだけ**を定義します。
 質量・摩擦係数が無いと決まらない大小（「手の押す力」と「AがBに及ぼす力」の比較など）は定義しません。
@@ -147,6 +154,6 @@
   "progress": { "A05": { "cleared": true, "attempts": 2, "lastAt": "2026-09-19T10:00:00+09:00" } },
   "misconceptionCount": { "MC_MOTION_FORCE": 5 },
   "testResults": [{ "at": "…", "range": "mech-basic", "score": 17, "full": 20, "code": "K7F2" }],
-  "settings": { "labelMode": "name", "theme": "auto", "contrast": "normal", "judgeMagnitude": false }
+  "settings": { "level": "arrow", "labelMode": "name", "theme": "auto", "contrast": "normal" }
 }
 ```

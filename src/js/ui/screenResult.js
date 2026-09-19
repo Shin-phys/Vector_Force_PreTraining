@@ -1,5 +1,6 @@
 import { h, clear, dirLabel as DIR } from './dom.js';
-import { FigureRenderer, forceLabel } from '../canvas/renderer.js';
+import { FigureRenderer, forceLabel, circledNumber } from '../canvas/renderer.js';
+import { snapText } from './forceList.js';
 import { relationText, answerSteps } from '../logic/relations.js';
 import { lengthOfStep } from '../canvas/geometry.js';
 import { summarize, makeCode } from '../logic/score.js';
@@ -17,14 +18,16 @@ export async function renderOverlay(host, problem, part, inputs, judged, ctx) {
   const r = new FigureRenderer(host);
   await r.mount(problem.figure);
   r.catalog = ctx.catalog;
+  const arrowOnly = (ctx.settings.level || 'arrow') === 'arrow';
   const body = (part.targetBody || 'body-a').replace('body-', '');
-  const mine = inputs.map(f => {
+  const mine = inputs.map((f, i) => {
     const it = judged?.items.find(x => x.input === f);
-    return { ...f, verdict: it?.verdict };
+    return { ...f, num: i + 1, verdict: it?.verdict, labelMode: arrowOnly ? 'number' : undefined };
   });
   const st = answerSteps(problem);
   const answers = (part.answers || []).map(a => ({
-    ...a, body, state: 'answer', step: st[a.key], length: lengthOfStep(st[a.key])
+    ...a, body, state: 'answer', labelMode: 'name',
+    step: st[a.key], length: lengthOfStep(st[a.key])
   }));
   r.drawForces([...answers, ...mine], { labelMode: ctx.settings.labelMode });
   return r;
@@ -33,6 +36,7 @@ export async function renderOverlay(host, problem, part, inputs, judged, ctx) {
 export async function renderResult(ctx, p) {
   const { problem, part, judged, relResults, codes, ok, forcesOk, step } = p;
   const rels = (relResults || []).filter(r => r.status !== 'na');
+  const arrowOnly = (p.level || ctx.settings.level || 'arrow') === 'arrow';
   const heading = ok ? '正解です'
     : (forcesOk ? '力は正しく描けています。大きさだけ見直しましょう' : 'ここを見直しましょう');
   const s = ctx.session;
@@ -54,24 +58,40 @@ export async function renderResult(ctx, p) {
       h('p', { class: 'legend' },
         '自分の図：', h('i', { style: 'background:var(--ok)' }), '正しい　',
         h('i', { style: 'background:var(--ng)' }), '誤り　／　正解：',
-        h('i', { style: 'background:var(--force-answer)' }), '破線')
+        h('i', { style: 'background:var(--force-answer)' }), '破線（名称つき）')
     ),
     h('div', { class: 'card' },
       h('h2', {}, '判定'),
-      h('table', {},
-        h('thead', {}, h('tr', {}, h('th', {}, '描いた力'), h('th', {}, '相手'), h('th', {}, '向き'), h('th', {}, '判定'))),
-        h('tbody', {},
-          ...judged.items.map(it => h('tr', {},
-            h('td', {}, (ctx.catalog.forces[it.input.type] || {}).label || it.input.type),
-            h('td', {}, (ctx.catalog.sources[it.input.from] || {}).label || it.input.from),
-            h('td', {}, DIR(it.input.angle)),
-            h('td', { class: `v-${it.verdict}` }, VD_LABEL[it.verdict]))),
-          ...judged.missing.map(m => h('tr', {},
-            h('td', {}, (ctx.catalog.forces[m.type] || {}).label || m.type),
-            h('td', {}, (ctx.catalog.sources[m.from] || {}).label || m.from),
-            h('td', {}, DIR(m.angle)),
-            h('td', { class: 'v-MISSING' }, VD_LABEL.MISSING)))
-        )),
+      arrowOnly
+        ? h('table', {},
+          h('thead', {}, h('tr', {}, h('th', {}, '矢印'), h('th', {}, '作用点'), h('th', {}, '向き'), h('th', {}, '判定'))),
+          h('tbody', {},
+            ...judged.items.map((it, i) => h('tr', {},
+              h('td', {}, circledNumber(i + 1)),
+              h('td', {}, snapText(p.snapMap?.[it.input.snap])),
+              h('td', {}, DIR(it.input.angle)),
+              h('td', { class: `v-${it.verdict}` }, VD_LABEL[it.verdict]))),
+            ...judged.missing.map(m => h('tr', {},
+              h('td', {}, '—'),
+              h('td', {}, snapText(p.snapMap?.[m.snap])),
+              h('td', {}, DIR(m.angle)),
+              h('td', { class: 'v-MISSING' },
+                `${VD_LABEL.MISSING}（${(ctx.catalog.forces[m.type] || {}).label || m.type}）`)))
+          ))
+        : h('table', {},
+          h('thead', {}, h('tr', {}, h('th', {}, '描いた力'), h('th', {}, '相手'), h('th', {}, '向き'), h('th', {}, '判定'))),
+          h('tbody', {},
+            ...judged.items.map(it => h('tr', {},
+              h('td', {}, (ctx.catalog.forces[it.input.type] || {}).label || it.input.type),
+              h('td', {}, (ctx.catalog.sources[it.input.from] || {}).label || it.input.from),
+              h('td', {}, DIR(it.input.angle)),
+              h('td', { class: `v-${it.verdict}` }, VD_LABEL[it.verdict]))),
+            ...judged.missing.map(m => h('tr', {},
+              h('td', {}, (ctx.catalog.forces[m.type] || {}).label || m.type),
+              h('td', {}, (ctx.catalog.sources[m.from] || {}).label || m.from),
+              h('td', {}, DIR(m.angle)),
+              h('td', { class: 'v-MISSING' }, VD_LABEL.MISSING)))
+          )),
       rels.length ? h('div', {},
         h('h3', {}, '大きさの関係'),
         ...rels.map(rr => {

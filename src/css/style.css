@@ -127,10 +127,11 @@ th { color: var(--text-dim); font-weight: 600; font-size: .82rem; }
 
 /* 力の矢印 */
 .force { pointer-events: none; }
-.force .shaft { stroke-width: 3.2; stroke-linecap: round; fill: none; }
+.force .shaft { stroke-width: var(--w-force); stroke-linecap: round; fill: none; }
 .force .head { stroke: none; }
-.force .dot { stroke: var(--panel); stroke-width: 1.5; }
-.force .lbl { font: 600 13px var(--font); paint-order: stroke; stroke: var(--panel); stroke-width: 3.5; stroke-linejoin: round; }
+.force .dot { stroke: var(--panel); stroke-width: 1.8; }
+.force .lbl { font: 700 14px var(--font); paint-order: stroke; stroke: var(--panel); stroke-width: 4.5; stroke-linejoin: round; }
+.force .lbl.num { font: 700 22px var(--font); }
 .force.body-a .shaft, .force.body-a .head, .force.body-a .dot { stroke: var(--force-a); }
 .force.body-a .head, .force.body-a .dot { fill: var(--force-a); }
 .force.body-a .lbl { fill: var(--force-a); }
@@ -148,7 +149,8 @@ th { color: var(--text-dim); font-weight: 600; font-size: .82rem; }
 .force.state-answer .head, .force.state-answer .dot { stroke: var(--force-answer); fill: var(--force-answer); }
 .force.state-answer .lbl { fill: var(--force-answer); }
 .force.state-ghost { opacity: .6; }
-.force.sel .shaft { stroke-width: 5; }
+.force.sel .shaft { stroke-width: calc(var(--w-force) + 2); }
+.force.state-answer .shaft { stroke-width: calc(var(--w-force) - 1.2); }
 .snap-marker { fill: var(--accent); opacity: .3; }
 .snap-marker.near { opacity: .85; }
 
@@ -174,3 +176,7 @@ th { color: var(--text-dim); font-weight: 600; font-size: .82rem; }
 .fl-item .len { display: flex; align-items: center; gap: 4px; flex: none; }
 .fl-item .len b { font-size: .8rem; font-weight: 600; color: var(--text-dim); min-width: 2.2em; text-align: center; }
 .fl-item .len button { min-height: 32px; min-width: 32px; padding: 0; font-size: 1rem; line-height: 1; }
+.fl-item .num { font-size: 1.15rem; font-weight: 700; flex: none; width: 1.4em; text-align: center; }
+.level-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.level-pick .chip { flex: 1 1 auto; min-width: 8em; text-align: center; }
+.step-note { font-size: .85rem; color: var(--text-dim); margin: .4em 0 0; }

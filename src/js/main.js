@@ -9,7 +9,7 @@ import { h, clear } from './ui/dom.js';
 const ctx = {
   app: document.getElementById('app'),
   index: null, catalog: null, feedback: null,
-  settings: { labelMode: 'name', theme: 'auto', contrast: 'normal', judgeMagnitude: false },
+  settings: { level: 'arrow', labelMode: 'name', theme: 'auto', contrast: 'normal' },
   session: null,
   cleanup: null,
 

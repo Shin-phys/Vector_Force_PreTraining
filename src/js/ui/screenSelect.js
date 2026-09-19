@@ -1,6 +1,7 @@
 import { h, clear } from './dom.js';
 import * as store from '../data/storage.js';
 import { CONFIG } from '../config.js';
+import { levelPicker, levelNote } from './levelPick.js';
 
 export function renderSelect(ctx, { mode }) {
   const st = store.load();
@@ -9,7 +10,7 @@ export function renderSelect(ctx, { mode }) {
   const tags = [...new Set(all.flatMap(p => p.tags || []))].sort();
 
   const listHost = h('div', { class: 'plist' });
-  let magNote;
+  const magNote = h('p', { class: 'step-note' }, levelNote(ctx.settings.level || 'arrow'));
   const countLabel = h('p', { class: 'muted' });
 
   const filtered = () => all.filter(p =>
@@ -53,22 +54,9 @@ export function renderSelect(ctx, { mode }) {
         k => { const u = ctx.index.units.find(x => x.key === k); return `${u.code} ${u.label}`; }),
       h('div', { class: 'pal-label' }, 'タグ'),
       chipRow(tags, 'tag', t => t),
-      h('div', { class: 'pal-label' }, '大きさの判定'),
-      h('div', { class: 'chips' },
-        h('button', {
-          class: 'chip', 'aria-pressed': String(!!ctx.settings.judgeMagnitude),
-          onclick: e => {
-            ctx.settings.judgeMagnitude = !ctx.settings.judgeMagnitude;
-            store.setSetting('judgeMagnitude', ctx.settings.judgeMagnitude);
-            e.currentTarget.setAttribute('aria-pressed', String(ctx.settings.judgeMagnitude));
-            magNote.textContent = ctx.settings.judgeMagnitude
-              ? '矢印の長さ（5段階）で大小関係まで判定します。'
-              : '力の名称・相手・作用点・向きだけを判定します（長さは自由）。';
-          }
-        }, '大きさも判定する'),
-        magNote = h('span', { class: 'muted' }, ctx.settings.judgeMagnitude
-          ? '矢印の長さ（5段階）で大小関係まで判定します。'
-          : '力の名称・相手・作用点・向きだけを判定します（長さは自由）。')),
+      h('div', { class: 'pal-label' }, '判定のレベル'),
+      levelPicker(ctx, magNote),
+      magNote,
       h('div', { class: 'row', style: 'margin-top:12px' },
         h('button', {
           class: 'primary',

@@ -9,11 +9,16 @@ const el = (n, attrs = {}) => {
   return e;
 };
 
-/** 13px のラベル幅のおおよその見積もり（全角13px・半角7px） */
+/** ラベル幅のおおよその見積もり（全角14px・半角8px） */
 function textWidth(t) {
   let w = 0;
-  for (const ch of t) w += ch.codePointAt(0) > 0x2e80 ? 13 : 7;
+  for (const ch of t) w += ch.codePointAt(0) > 0x2e80 ? 14 : 8;
   return w;
+}
+
+/** ①②③… 矢印だけを描くモードで、図と一覧を対応づける番号 */
+export function circledNumber(n) {
+  return n >= 1 && n <= 20 ? String.fromCodePoint(0x2460 + n - 1) : `(${n})`;
 }
 
 let defsInjected = false;
@@ -189,19 +194,22 @@ export class FigureRenderer {
     g.appendChild(el('polygon', { class: 'head', points: hp }));
     g.appendChild(el('circle', { class: 'dot', cx: c.x, cy: c.y, r: CONFIG.DOT_R }));
 
-    if (opts.labels !== false) {
+    const labelModeFor = f.labelMode || opts.labelMode || this.labelMode;
+    if (opts.labels !== false && labelModeFor !== 'none') {
       const u = unitVec(f.angle);
       let lx = tip.x + u.x * 10 + pv.x * 4;
       let ly = tip.y + u.y * 10 + pv.y * 4 + 5;
       const anchor = u.x < -0.25 ? 'end' : (u.x > 0.25 ? 'start' : 'middle');
-      const txt = forceLabel(f, this.catalog, opts.labelMode || this.labelMode);
-      const tw = textWidth(txt);
+      const mode = labelModeFor;
+      const isNum = mode === 'number';
+      const txt = isNum ? circledNumber(f.num || 1) : forceLabel(f, this.catalog, mode);
+      const tw = isNum ? 24 : textWidth(txt);
       // 図の外へはみ出さないように、寄せ方は変えずに位置だけ寄せる
       if (anchor === 'start') lx = Math.max(6, Math.min(lx, 596 - tw));
       else if (anchor === 'end') lx = Math.min(594, Math.max(lx, 4 + tw));
       else lx = Math.max(6 + tw / 2, Math.min(594 - tw / 2, lx));
       ly = Math.max(16, Math.min(392, ly));
-      const t = el('text', { class: 'lbl', x: lx, y: ly, 'text-anchor': anchor });
+      const t = el('text', { class: isNum ? 'lbl num' : 'lbl', x: lx, y: ly, 'text-anchor': isNum ? 'middle' : anchor });
       t.textContent = txt;
       g.appendChild(t);
     }

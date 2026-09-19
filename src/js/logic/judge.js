@@ -7,17 +7,20 @@ const sameAngle = (a, b) => angleDiff(a, b) <= CONFIG.ANGLE_TOL;
 
 /**
  * 入力集合と正解集合を1対1に対応させる。
- * 同じ名称（type）のものだけを対応候補とし、作用点・向き・相手の一致数が多い組を優先する。
+ * mode 'full'  … 同じ名称（type）のものだけを対応候補にする
+ * mode 'arrow' … 名称を使わないので、作用点か向きのどちらかが合うものを対応候補にする
  */
-export function judgePart(part, inputs, snapMap = {}) {
+export function judgePart(part, inputs, snapMap = {}, mode = 'full') {
+  const arrowOnly = mode === 'arrow';
   const answers = part.answers || [];
   const pairs = [];
   inputs.forEach((inp, i) => {
     answers.forEach((ans, j) => {
-      if (inp.type !== ans.type) return;
       const p = inp.snap === ans.snap;
       const a = sameAngle(inp.angle, ans.angle);
-      const s = inp.from === ans.from;
+      const s = arrowOnly ? true : inp.from === ans.from;
+      if (arrowOnly) { if (!p && !a) return; }
+      else if (inp.type !== ans.type) return;
       pairs.push({ i, j, score: (p ? 4 : 0) + (a ? 3 : 0) + (s ? 2 : 0), p, a, s });
     });
   });

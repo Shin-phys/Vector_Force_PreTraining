@@ -1,8 +1,10 @@
 import { h, clear } from './dom.js';
 import * as store from '../data/storage.js';
+import { levelPicker, levelNote } from './levelPick.js';
 
 export function renderTop(ctx) {
   const st = store.load();
+  const levelNoteEl = h('p', { class: 'step-note' }, levelNote(ctx.settings.level || 'arrow'));
   const total = ctx.index.problems.length;
   const cleared = ctx.index.problems.filter(p => st.progress[p.id]?.cleared).length;
   const mcTop = Object.entries(st.misconceptionCount || {}).sort((a, b) => b[1] - a[1]).slice(0, 3);
@@ -40,15 +42,11 @@ export function renderTop(ctx) {
     ) : null,
     h('div', { class: 'card' },
       h('h2', {}, '設定'),
+      h('h3', {}, '判定のレベル'),
+      levelPicker(ctx, levelNoteEl),
+      levelNoteEl,
+      h('h3', {}, '表示'),
       h('div', { class: 'row' },
-        h('button', {
-          class: 'chip', 'aria-pressed': String(!!ctx.settings.judgeMagnitude),
-          onclick: e => {
-            ctx.settings.judgeMagnitude = !ctx.settings.judgeMagnitude;
-            store.setSetting('judgeMagnitude', ctx.settings.judgeMagnitude);
-            e.target.setAttribute('aria-pressed', String(ctx.settings.judgeMagnitude));
-          }
-        }, '大きさも判定する'),
         h('button', {
           class: 'chip', 'aria-pressed': String(ctx.settings.labelMode === 'symbol'),
           onclick: e => {
@@ -76,9 +74,6 @@ export function renderTop(ctx) {
           }
         }, 'ハイコントラスト')
       ),
-      h('p', { class: 'muted' },
-        '「大きさも判定する」を入れると、矢印の長さ（5段階）で力の大小関係まで判定します。'
-        + 'まずは力を過不足なく挙げられるようにしたい段階では、切ったまま使ってください。'),
       h('p', { class: 'muted' }, '進捗はこの端末のブラウザに保存されます（ログイン不要）。'),
       h('button', {
         class: 'ghost small', onclick: () => {

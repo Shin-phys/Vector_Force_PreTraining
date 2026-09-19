@@ -22,7 +22,10 @@ export async function renderSolve(ctx) {
   s.inputs[key] = s.inputs[key] || [];
   s.attempts[key] = s.attempts[key] || 0;
   const isLastPart = step.partIndex === problem.parts.length - 1;
-  const magOn = !!ctx.settings.judgeMagnitude && (problem.relations || []).length > 0;
+  const level = ctx.settings.level || 'arrow';
+  const namesOn = level !== 'arrow';
+  const magOn = level === 'magnitude' && (problem.relations || []).length > 0;
+  const labelMode = namesOn ? ctx.settings.labelMode : 'number';
   const isLastStep = s.pos === s.queue.length - 1;
 
   const figHost = h('div');
@@ -67,7 +70,15 @@ export async function renderSolve(ctx) {
   r.showSnapMarkers(true, null, part.bodyKey);
 
   // 名称と相手を選んだら、図が画面外にあってもすぐ触れるように戻す（スマホで効く）
-  const palette = new ForcePalette(palHost, ctx.catalog, sel => {
+  let palette = null;
+  if (!namesOn) {
+    palHost.append(
+      h('div', { class: 'pal-label' }, '作用点をタップ →　矢先までドラッグ'),
+      h('p', { class: 'step-note' },
+        'この段階では、力の名称や「何から受ける力か」は選びません。'
+        + 'はたらいている力を、過不足なく矢印だけで描いてください。')
+    );
+  } else palette = new ForcePalette(palHost, ctx.catalog, sel => {
     hintbar.textContent = '';
     if (sel.type && sel.from) {
       const rect = wrap.getBoundingClientRect();
@@ -76,10 +87,11 @@ export async function renderSolve(ctx) {
       }
     }
   });
-  palette.render(part);
+  if (palette) palette.render(part);
 
   const input = new DrawInput(r, wrap, {
-    getSelection: () => palette.get(),
+    getSelection: () => (palette ? palette.get() : {}),
+    requireSelection: () => namesOn,
     getBody: () => part.bodyKey,
     getSnaps: () => r.snaps.filter(sn => sn.body === part.bodyKey),
     getAnchors: () => problem.angleAnchors || [],
@@ -87,7 +99,7 @@ export async function renderSolve(ctx) {
     onMessage: m => { hintbar.textContent = m; },
     onCommit: f => {
       s.inputs[key].push({ ...f, body: part.bodyKey, uid: `u${uidSeq++}` });
-      palette.clearSelection();
+      palette?.clearSelection();
       paint();
     }
   });
@@ -100,15 +112,18 @@ export async function renderSolve(ctx) {
     const out = [];
     for (let i = 0; i < step.partIndex; i++) {
       const pp = problem.parts[i];
-      (s.inputs[`${problem.id}:${pp.id}`] || []).forEach(f => out.push({ ...f, state: 'prev' }));
+      (s.inputs[`${problem.id}:${pp.id}`] || []).forEach(f =>
+        out.push({ ...f, state: 'prev', labelMode: namesOn ? undefined : 'none' }));
     }
     return out;
   }
 
   function paint() {
-    r.drawForces([...prevForces(), ...s.inputs[key]], { labelMode: ctx.settings.labelMode });
+    const mine = s.inputs[key].map((f, i) => ({ ...f, num: i + 1 }));
+    r.drawForces([...prevForces(), ...mine], { labelMode });
     renderForceList(listHost, s.inputs[key], ctx.catalog, {
-      labelMode: ctx.settings.labelMode,
+      labelMode,
+      snapInfo: snapMap,
       showLength: magOn,
       onDelete: i => { s.inputs[key].splice(i, 1); paint(); },
       onLength: (i, d) => {
@@ -124,7 +139,7 @@ export async function renderSolve(ctx) {
 
   /* ---- ボタン ---- */
   const judgeNow = () => {
-    const judged = judgePart(part, s.inputs[key], snapMap);
+    const judged = judgePart(part, s.inputs[key], snapMap, namesOn ? 'full' : 'arrow');
     s.judged[key] = judged;
     const byPart = {};
     problem.parts.forEach(pp => {
@@ -151,7 +166,7 @@ export async function renderSolve(ctx) {
           s.attempts[key] += 1;
           if (ok) {
             markProgress();
-            ctx.go('result', { problem, part, judged, relResults, codes: [], snapMap, ok: true, forcesOk, step });
+            ctx.go('result', { problem, part, judged, relResults, codes: [], snapMap, ok: true, forcesOk, step, level });
             return;
           }
           store.recordCodes(codes);
@@ -164,7 +179,7 @@ export async function renderSolve(ctx) {
             return;
           }
           markProgress();
-          ctx.go('result', { problem, part, judged, relResults, codes, snapMap, ok: false, forcesOk, step });
+          ctx.go('result', { problem, part, judged, relResults, codes, snapMap, ok: false, forcesOk, step, level });
         }
       }, '判定する'),
       h('button', { class: 'ghost', onclick: () => { s.inputs[key] = []; paint(); } }, '全部消す')
