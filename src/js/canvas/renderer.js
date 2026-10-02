@@ -21,6 +21,24 @@ export function circledNumber(n) {
   return n >= 1 && n <= 20 ? String.fromCodePoint(0x2460 + n - 1) : `(${n})`;
 }
 
+const PAD = 3;
+function labelBox(pos, tw, th) {
+  const x = pos.anchor === 'start' ? pos.x : pos.anchor === 'end' ? pos.x - tw : pos.x - tw / 2;
+  return { x: x - PAD, y: pos.y - th + 3 - PAD, w: tw + PAD * 2, h: th + PAD * 2 };
+}
+function overlaps(a, b) {
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+function clampLabel(pos, tw, th) {
+  const half = pos.anchor === 'start' ? 0 : pos.anchor === 'end' ? tw : tw / 2;
+  const lo = 6 + half, hi = 594 - (tw - half);
+  return {
+    x: Math.max(Math.min(pos.x, hi), lo),
+    y: Math.max(th, Math.min(pos.y, 394)),
+    anchor: pos.anchor
+  };
+}
+
 let defsInjected = false;
 export async function injectDefs(url = 'assets/parts/defs.svg') {
   if (defsInjected) return;
@@ -134,17 +152,87 @@ export class FigureRenderer {
   drawForces(forces, opts = {}) {
     this.forceLayer.textContent = '';
     const offs = this._offsets(forces);
+    const drawn = [];
     forces.forEach((f, i) => {
-      const g = this._forceNode(f, offs[i], opts);
-      if (g) this.forceLayer.appendChild(g);
+      const d = this._forceNode(f, offs[i], opts);
+      if (d) { this.forceLayer.appendChild(d.node); drawn.push(d); }
     });
+    // ラベルは矢印をすべて描いたあとで置く（矢印や他のラベルと重ならない位置を選ぶ）
+    const taken = this._obstacles(drawn);
+    drawn.forEach((d, i) => {
+      const t = this._placeLabel(d.force, d.geom, opts, taken, i);
+      if (t) d.node.appendChild(t);
+    });
+  }
+
+  /** ラベルを避けさせたいもの：矢印の軸と、図にもともとある文字 */
+  _obstacles(drawn) {
+    const boxes = [];
+    drawn.forEach((d, owner) => {
+      const { c, tip } = d.geom;
+      const n = Math.max(2, Math.ceil(Math.hypot(tip.x - c.x, tip.y - c.y) / 14));
+      for (let k = 0; k <= n; k++) {
+        const x = c.x + (tip.x - c.x) * k / n, y = c.y + (tip.y - c.y) * k / n;
+        boxes.push({ x: x - 7, y: y - 7, w: 14, h: 14, owner });
+      }
+    });
+    try {
+      this.svg.querySelectorAll('text.fig-note, text.fig-label, [data-role="body"] [data-role="outline"]')
+        .forEach(n => {
+          const b = n.getBBox();
+          boxes.push({ x: b.x, y: b.y, w: b.width, h: b.height, owner: -1 });
+        });
+    } catch (e) { /* 取得できなくても続行 */ }
+    return boxes;
+  }
+
+  _placeLabel(f, geom, opts, taken, owner = -1) {
+    const mode = f.labelMode || opts.labelMode || this.labelMode;
+    if (opts.labels === false || mode === 'none') return null;
+    const isNum = mode === 'number';
+    const txt = isNum ? circledNumber(f.num || 1) : forceLabel(f, this.catalog, mode);
+    const tw = isNum ? 22 : textWidth(txt);
+    const th = isNum ? 22 : 17;
+    const { tip, u, pv, c } = geom;
+    const mid = { x: (c.x + tip.x) / 2, y: (c.y + tip.y) / 2 };
+    const along = u.x < -0.25 ? 'end' : (u.x > 0.25 ? 'start' : 'middle');
+    const side = pv.x > 0.25 ? 'start' : (pv.x < -0.25 ? 'end' : 'middle');
+    const gap = isNum ? 14 : 17;
+    const other = side === 'start' ? 'end' : (side === 'end' ? 'start' : 'middle');
+    const at = (d, q, anchor) => ({ x: tip.x + u.x * d + pv.x * q, y: tip.y + u.y * d + pv.y * q, anchor });
+    const cands = [
+      at(gap, 0, along),
+      at(gap, 20, along), at(gap, -20, along),
+      at(gap + 26, 0, along),
+      at(gap + 26, 26, along), at(gap + 26, -26, along),
+      at(gap + 54, 0, along),
+      { x: mid.x + pv.x * 24, y: mid.y + pv.y * 24, anchor: side },
+      { x: mid.x - pv.x * 24, y: mid.y - pv.y * 24, anchor: other }
+    ];
+
+    let best = null, bestHit = Infinity;
+    for (const cd of cands) {
+      const pos = clampLabel(cd, tw, th);
+      const box = labelBox(pos, tw, th);
+      // 自分の矢印の軸は避けなくてよい（ラベルは矢先の先に置くため）
+      const hit = taken.reduce((n, b) => n + (b.owner !== owner && overlaps(box, b) ? 1 : 0), 0);
+      if (hit === 0) { best = { pos, box }; break; }
+      if (hit < bestHit) { bestHit = hit; best = { pos, box }; }
+    }
+    taken.push({ ...best.box, owner: -1 });
+    const t = el('text', {
+      class: isNum ? 'lbl num' : 'lbl',
+      x: best.pos.x, y: best.pos.y, 'text-anchor': isNum ? 'middle' : best.pos.anchor
+    });
+    t.textContent = txt;
+    return t;
   }
 
   drawGhost(f) {
     this.ghostLayer.textContent = '';
     if (!f) return;
-    const g = this._forceNode({ ...f, state: 'ghost' }, { x: 0, y: 0 }, { labels: false });
-    if (g) this.ghostLayer.appendChild(g);
+    const d = this._forceNode({ ...f, state: 'ghost' }, { x: 0, y: 0 }, { labels: false });
+    if (d) this.ghostLayer.appendChild(d.node);
   }
 
   clearGhost() { this.ghostLayer.textContent = ''; }
@@ -193,26 +281,6 @@ export class FigureRenderer {
     g.appendChild(el('line', { class: 'shaft', x1: c.x, y1: c.y, x2: back.x, y2: back.y }));
     g.appendChild(el('polygon', { class: 'head', points: hp }));
     g.appendChild(el('circle', { class: 'dot', cx: c.x, cy: c.y, r: CONFIG.DOT_R }));
-
-    const labelModeFor = f.labelMode || opts.labelMode || this.labelMode;
-    if (opts.labels !== false && labelModeFor !== 'none') {
-      const u = unitVec(f.angle);
-      let lx = tip.x + u.x * 10 + pv.x * 4;
-      let ly = tip.y + u.y * 10 + pv.y * 4 + 5;
-      const anchor = u.x < -0.25 ? 'end' : (u.x > 0.25 ? 'start' : 'middle');
-      const mode = labelModeFor;
-      const isNum = mode === 'number';
-      const txt = isNum ? circledNumber(f.num || 1) : forceLabel(f, this.catalog, mode);
-      const tw = isNum ? 24 : textWidth(txt);
-      // 図の外へはみ出さないように、寄せ方は変えずに位置だけ寄せる
-      if (anchor === 'start') lx = Math.max(6, Math.min(lx, 596 - tw));
-      else if (anchor === 'end') lx = Math.min(594, Math.max(lx, 4 + tw));
-      else lx = Math.max(6 + tw / 2, Math.min(594 - tw / 2, lx));
-      ly = Math.max(16, Math.min(392, ly));
-      const t = el('text', { class: isNum ? 'lbl num' : 'lbl', x: lx, y: ly, 'text-anchor': isNum ? 'middle' : anchor });
-      t.textContent = txt;
-      g.appendChild(t);
-    }
-    return g;
+    return { node: g, force: f, geom: { c, tip, pv, u: unitVec(f.angle) } };
   }
 }

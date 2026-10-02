@@ -39,8 +39,8 @@ export async function renderSolve(ctx) {
   const listHost = h('div', { class: 'force-list' });
   const actions = h('div', { class: 'sticky-actions' });
 
-  const root = h('div', { class: 'wrap' },
-    h('div', { class: 'card' },
+  const root = h('div', { class: 'wrap solve-grid' },
+    h('div', { class: 'col-fig' }, h('div', { class: 'card' },
       h('div', { class: 'solve-head' },
         h('span', { class: 'pid' }, problem.id),
         h('strong', {}, problem.title),
@@ -49,15 +49,16 @@ export async function renderSolve(ctx) {
         h('button', { class: 'ghost small', onclick: () => ctx.go('top') }, '中断')),
       problem.prompt ? h('p', { class: 'muted' }, problem.prompt) : null,
       h('p', { class: 'prompt' }, part.prompt),
-      wrap, hintbar),
-    h('div', { class: 'card' }, palHost),
-    h('div', { class: 'card' },
-      h('div', { class: 'row between' }, h('h3', {}, '描いた力'),
-        h('button', {
-          class: 'ghost small', onclick: () => { s.inputs[key].pop(); paint(); }
-        }, '1手戻る')),
-      listHost),
-    actions
+      wrap, hintbar)),
+    h('div', { class: 'col-side' },
+      h('div', { class: 'card' }, palHost),
+      h('div', { class: 'card' },
+        h('div', { class: 'row between' }, h('h3', {}, '描いた力'),
+          h('button', {
+            class: 'ghost small', onclick: () => { s.inputs[key].pop(); paint(); }
+          }, '1手戻る')),
+        listHost),
+      actions)
   );
   clear(ctx.app).append(root);
 

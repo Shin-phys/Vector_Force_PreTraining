@@ -20,7 +20,7 @@
   --force-a: #0b48d0;        /* 物体Aにはたらく力 */
   --force-b: #d34500;        /* 物体Bにはたらく力 */
   --force-prev: #9aa5b1;     /* 前パートの残存表示 */
-  --force-answer: #0b7d70;   /* 正解の重ね表示 */
+  --force-answer: #7119cf;   /* 正解の重ね表示（自分の図の緑・赤と色相を分ける） */
   --force-dummy: #8b1fd0;
 
   --ok: #15803d;
@@ -58,8 +58,8 @@
     --force-a: #7fb4ff;
     --force-b: #ff9f5c;
     --force-prev: #6b7a89;
-    --force-answer: #5eead4;
-    --force-dummy: #d8b4fe;
+    --force-answer: #cba6ff;
+    --force-dummy: #f0abfc;
 
     --ok: #4ade80;
     --ng: #fca5a5;
@@ -75,7 +75,7 @@
   --outline: #e8edf3; --scenery: #b8c5d2; --hatch: #7c8a98; --guide: #8795a3;
   --body-a-fill: #313b47; --body-b-fill: #453a2e;
   --force-a: #7fb4ff; --force-b: #ff9f5c; --force-prev: #6b7a89;
-  --force-answer: #5eead4; --force-dummy: #d8b4fe;
+  --force-answer: #cba6ff; --force-dummy: #f0abfc;
   --ok: #4ade80; --ng: #fca5a5; --warn: #fcd34d;
   --accent: #3b82f6; --accent-ink: #0b1016;
 }

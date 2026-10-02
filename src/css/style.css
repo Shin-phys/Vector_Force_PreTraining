@@ -180,3 +180,34 @@ th { color: var(--text-dim); font-weight: 600; font-size: .82rem; }
 .level-pick { display: flex; flex-wrap: wrap; gap: 8px; }
 .level-pick .chip { flex: 1 1 auto; min-width: 8em; text-align: center; }
 .step-note { font-size: .85rem; color: var(--text-dim); margin: .4em 0 0; }
+
+/* ---- PC（広い画面）は2段組にして、判定後に下へスクロールしなくて済むようにする ---- */
+.solve-grid, .result-grid { display: grid; gap: 14px; align-items: start; }
+@media (min-width: 950px) {
+  .wrap.solve-grid, .wrap.result-grid { max-width: 1340px; }
+  .solve-grid { grid-template-columns: minmax(0, 1.35fr) minmax(340px, 1fr); }
+  .result-grid { grid-template-columns: minmax(0, 1.25fr) minmax(370px, 1fr); }
+  .col-fig { position: sticky; top: 14px; }
+  .col-side { display: flex; flex-direction: column; gap: 14px; }
+  .col-side > * { margin: 0; }
+  .sticky-actions { position: static; border-top: 0; padding: 0; }
+}
+@media (max-width: 949px) {
+  .col-side > .card { margin-bottom: 14px; }
+}
+.view-pick { margin: 0 0 10px; }
+.view-pick .chip { padding: .35em .9em; min-height: 36px; font-size: .88rem; }
+.legend { margin-top: 8px; }
+.legend i.dash {
+  width: 22px; height: 0; border-top: 3px dashed var(--force-answer); background: none;
+}
+
+/* ---- 狭い画面では余白を詰めて図を少しでも大きく ---- */
+@media (max-width: 560px) {
+  .wrap { padding: 10px; }
+  .card { padding: 12px; }
+  .col-fig > .card { padding-left: 10px; padding-right: 10px; }
+  .col-fig .figure-wrap { margin-left: -10px; margin-right: -10px; border-radius: 0; border-left: 0; border-right: 0; }
+  .solve-head strong { font-size: 1.02rem; }
+  .sticky-actions button { font-size: .88rem; padding: .5em .85em; }
+}

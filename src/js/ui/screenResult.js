@@ -13,24 +13,34 @@ const VD_LABEL = {
 };
 const isLastPart = (problem, part) => problem.parts[problem.parts.length - 1].id === part.id;
 
-/** 自分の図と正解の重ね合わせ */
+/** 自分の図と正解の重ね合わせ。view で描き分ける */
 export async function renderOverlay(host, problem, part, inputs, judged, ctx) {
   const r = new FigureRenderer(host);
   await r.mount(problem.figure);
   r.catalog = ctx.catalog;
   const arrowOnly = (ctx.settings.level || 'arrow') === 'arrow';
   const body = (part.targetBody || 'body-a').replace('body-', '');
-  const mine = inputs.map((f, i) => {
-    const it = judged?.items.find(x => x.input === f);
-    return { ...f, num: i + 1, verdict: it?.verdict, labelMode: arrowOnly ? 'number' : undefined };
-  });
   const st = answerSteps(problem);
   const answers = (part.answers || []).map(a => ({
     ...a, body, state: 'answer', labelMode: 'name',
     step: st[a.key], length: lengthOfStep(st[a.key])
   }));
-  r.drawForces([...answers, ...mine], { labelMode: ctx.settings.labelMode });
-  return r;
+  const mineFor = view => inputs.map((f, i) => {
+    const it = judged?.items.find(x => x.input === f);
+    return {
+      ...f, num: i + 1, verdict: it?.verdict,
+      // 重ねて表示するときは、自分の矢印に名称を出さない（正解のラベルと重なって読めなくなるため）
+      labelMode: arrowOnly ? 'number' : (view === 'mine' ? ctx.settings.labelMode : 'none')
+    };
+  });
+  const draw = (view = 'both') => {
+    const list = view === 'mine' ? mineFor(view)
+      : view === 'answer' ? answers
+        : [...answers, ...mineFor(view)];
+    r.drawForces(list, {});
+  };
+  draw('both');
+  return { r, draw };
 }
 
 export async function renderResult(ctx, p) {
@@ -49,17 +59,33 @@ export async function renderResult(ctx, p) {
 
   const isLastStep = s.pos === s.queue.length - 1;
 
-  const root = h('div', { class: 'wrap' },
-    h('div', { class: 'card' },
+  let viewMode = 'both';
+  let overlay = null;
+  const viewChips = h('div', { class: 'chips view-pick' },
+    [['both', '重ねて表示'], ['mine', '自分の図'], ['answer', '正解']].map(([v, label]) =>
+      h('button', {
+        class: 'chip', 'aria-pressed': String(v === viewMode), dataset: { v },
+        onclick: () => {
+          viewMode = v;
+          viewChips.querySelectorAll('.chip').forEach(c =>
+            c.setAttribute('aria-pressed', String(c.dataset.v === v)));
+          overlay?.draw(v);
+        }
+      }, label)));
+
+  const root = h('div', { class: 'wrap result-grid' },
+    h('div', { class: 'col-fig' }, h('div', { class: 'card' },
       h('div', { class: 'row between' },
         h('h1', {}, heading),
         h('span', { class: 'muted' }, `${problem.id}　${part.prompt}`)),
+      viewChips,
       wrap,
       h('p', { class: 'legend' },
         '自分の図：', h('i', { style: 'background:var(--ok)' }), '正しい　',
-        h('i', { style: 'background:var(--ng)' }), '誤り　／　正解：',
-        h('i', { style: 'background:var(--force-answer)' }), '破線（名称つき）')
-    ),
+        h('i', { style: 'background:var(--ng)' }), '誤り　／　',
+        h('i', { class: 'dash' }), '紫の破線が正解（名称つき）')
+    )),
+    h('div', { class: 'col-side' },
     h('div', { class: 'card' },
       h('h2', {}, '判定'),
       arrowOnly
@@ -117,10 +143,10 @@ export async function renderResult(ctx, p) {
       !isLastStep ? h('button', { class: 'primary', onclick: () => { s.pos += 1; ctx.go('solve'); } }, '次へ') : null,
       isLastStep ? h('button', { class: 'primary', onclick: () => ctx.go('top') }, 'TOPへ') : null,
       h('button', { class: 'ghost', onclick: () => ctx.go('select', { mode: s.mode }) }, '問題一覧へ')
-    )
+    ))
   );
   clear(ctx.app).append(root);
-  await renderOverlay(figHost, problem, part, inputs, judged, ctx);
+  overlay = await renderOverlay(figHost, problem, part, inputs, judged, ctx);
 }
 
 export async function renderTestResult(ctx) {
